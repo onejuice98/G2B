@@ -73,7 +73,7 @@ app.get("/", async (req, res) => {
   }
   postListObject("20221223", "20220603");
   */
-  res.send("HELLO G2B BOT is Here! v21");
+  res.send("HELLO G2B BOT is Here! v22");
 });
 
 app.listen(port);
