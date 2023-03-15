@@ -7,6 +7,7 @@ const {
   priceCrawler,
 } = require("./crawler");
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -75,4 +76,4 @@ app.get("/", async (req, res) => {
   res.send("HELLO G2B BOT is Here!");
 });
 
-app.listen(5001);
+app.listen(port);

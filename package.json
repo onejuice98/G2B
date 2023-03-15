@@ -6,7 +6,7 @@
   "author": "onejuice98 <waterpurifier@khu.ac.kr>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
