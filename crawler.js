@@ -48,7 +48,9 @@ const detailObject = (bidNo) => {
 
 const postCrawler = async (object) => {
   /* puppeter chromium 실행 */
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(object.href);
 
@@ -76,7 +78,10 @@ const postCrawler = async (object) => {
 };
 
 const detailCrawler = async (object) => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    headless: false,
+  });
   const page = await browser.newPage();
   await page.goto(object.href);
 
@@ -125,7 +130,9 @@ const detailCrawler = async (object) => {
 };
 
 const priceCrawler = async (bidNo) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(
     `https://www.g2b.go.kr:8081/ep/invitation/publish/bidInfoDtl.do?bidno=${bidNo}&bidseq=00&releaseYn=Y&taskClCd=3`
