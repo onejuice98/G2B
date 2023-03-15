@@ -1,8 +1,11 @@
 {
-  "name": "G2B",
+  "name": "g2b",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/onejuice98/G2B.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onejuice98/G2B.git"
+  },
   "author": "onejuice98 <waterpurifier@khu.ac.kr>",
   "license": "MIT",
   "scripts": {
@@ -15,5 +18,11 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.21"
-  }
+  },
+  "description": "Crawler",
+  "bugs": {
+    "url": "https://github.com/onejuice98/G2B/issues"
+  },
+  "homepage": "https://github.com/onejuice98/G2B#readme",
+  "keywords": []
 }
