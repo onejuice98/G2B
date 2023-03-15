@@ -9,7 +9,7 @@
   "author": "onejuice98 <waterpurifier@khu.ac.kr>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "npm install -g npm@9.6.1 node index.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
