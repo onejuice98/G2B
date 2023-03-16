@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.post("/api/posts", async (req, res) => {
-  const { from, to } = req.body;
-  const post = await postCrawler(postListObject(from, to));
+  const { from, to, bidCode, areaCode } = req.body;
+  const post = await postCrawler(postListObject(from, to, bidCode, areaCode));
 
   return res.status(200).json(post);
 });
