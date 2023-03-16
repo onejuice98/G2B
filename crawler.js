@@ -28,7 +28,7 @@ const postListObject = (from, to, bidCode, areaCode) => {
       { name: "수요기관", path: "td:nth-child(6) > div" },
       { name: "게약방법", path: "td:nth-child(7) > div" },
       { name: "입력일시", path: "td.tc > div" },
-      { name: "입찰마감일시", path: "td.tc > div > span.blue" },
+      { name: "입찰마감일시", path: "td.tc > div > span" },
       { name: "마감여부", path: "td:nth-child(10) > div" },
     ],
   };
