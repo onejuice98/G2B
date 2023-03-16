@@ -9,9 +9,7 @@ const dateParser = (date) => {
     const day = date.slice(6, 8);
     return [year, month, day];
   } catch (err) {
-    console.err(err);
-  } finally {
-    return ["2021", "03", "01"];
+    console.log(err);
   }
 };
 
@@ -21,8 +19,6 @@ const postListObject = (from, to, bidCode, areaCode) => {
   const [tYear, tMonth, tDay] = dateParser(to);
   const object = {
     href: `https://www.g2b.go.kr:8101/ep/tbid/tbidList.do?searchType=1&bidSearchType=1&searchDtType=1&fromBidDt=${fYear}%2F${fMonth}%2F${fDay}&toBidDt=${tYear}%2F${tMonth}%2F${tDay}&radOrgan=1&area=${areaCode}&strArea=${areaCode}&industryCd=${bidCode}&recordCountPerPage=100`,
-    //href2: `https://www.g2b.go.kr:8101/ep/tbid/tbidList.do?searchType=1&bidSearchType=1&searchDtType=1&fromBidDt=2023%2F02%2F12&toBidDt=2023%2F03%2F14&fromOpenBidDt=&toOpenBidDt=&radOrgan=1&instNm=&instSearchRangeType=&refNo=&area=42730&areaNm=%B0%AD%BF%F8%B5%B5+%C8%BE%BC%BA%B1%BA&strArea=4273&orgArea=42730&industry=%C5%E4%B8%F1%B0%F8%BB%E7%BE%F7&industryCd=${code}&recordCountPerPage=100`,
-    //href: `https://www.g2b.go.kr:8101/ep/tbid/tbidList.do?searchType=1&bidSearchType=1&taskClCds=3&bidNm=&searchDtType=1&fromBidDt=${fYear}%2F${fMonth}%2F${fDay}&toBidDt=${tYear}%2F${tMonth}%2F${tDay}&fromOpenBidDt=&toOpenBidDt=&radOrgan=1&instNm=&instSearchRangeType=&refNo=&area=42&areaNm=&strArea=42&orgArea=42&industry=%C1%B6%B0%E6%BD%C4%C0%E7%A4%FD%BD%C3%BC%B3%B9%B0%B0%F8%BB%E7%BE%F7&industryCd=4993&upBudget=&downBudget=&budgetCompare=&detailPrdnmNo=&detailPrdnm=&procmntReqNo=&intbidYn=&regYn=Y&recordCountPerPage=100`,
     selectPath: `table > tbody > tr`,
     items: [
       { name: "공고번호", path: "td:nth-child(2) > div" },
