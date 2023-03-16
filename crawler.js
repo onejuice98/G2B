@@ -3,10 +3,16 @@ const cheerio = require("cheerio");
 
 /* yyyy-mm-dd 형식 return 함수 */
 const dateParser = (date) => {
-  const year = date.slice(0, 4);
-  const month = date.slice(4, 6);
-  const day = date.slice(6, 8);
-  return [year, month, day];
+  try {
+    const year = date.slice(0, 4);
+    const month = date.slice(4, 6);
+    const day = date.slice(6, 8);
+    return [year, month, day];
+  } catch (err) {
+    console.err(err);
+  } finally {
+    return ["2021", "03", "01"];
+  }
 };
 
 /* 공사 목록 object */
