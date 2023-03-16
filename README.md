@@ -2,7 +2,7 @@
 
 ## 🔗 Link
 
-deploy by heroku : https://g2b-bot.herokuapp.com
+deploy by heroku : 
 
 ## 📒 Description
 
