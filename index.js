@@ -6,6 +6,9 @@ const {
   detailCrawler,
   priceCrawler,
 } = require("./crawler");
+const fs = require("fs");
+const postJSON = require("./post.json");
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -13,16 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/api/posts", async (req, res) => {
-  const { from, to, bidCode, areaCode } = req.query;
-  const post = await postCrawler(postListObject(from, to, bidCode, areaCode));
-
+  const post = JSON.parse(fs.readFileSync("post.json"));
   return res.status(200).json(post);
 });
 
 app.post("/api/posts", async (req, res) => {
   const { from, to, bidCode, areaCode } = req.body;
   const post = await postCrawler(postListObject(from, to, bidCode, areaCode));
-
+  fs.writeFileSync("post.json", JSON.stringify(post));
   return res.status(200).json(post);
 });
 
