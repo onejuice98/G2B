@@ -12,6 +12,13 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/api/posts", async (req, res) => {
+  const { from, to, bidCode, areaCode } = req.query;
+  const post = await postCrawler(postListObject(from, to, bidCode, areaCode));
+
+  return res.status(200).json(post);
+});
+
 app.post("/api/posts", async (req, res) => {
   const { from, to, bidCode, areaCode } = req.body;
   const post = await postCrawler(postListObject(from, to, bidCode, areaCode));
