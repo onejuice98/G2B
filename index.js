@@ -8,12 +8,14 @@ const {
 } = require("./crawler");
 const fs = require("fs");
 const postJSON = require("./post.json");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 app.get("/api/posts", async (req, res) => {
   const post = JSON.parse(fs.readFileSync("post.json"));
