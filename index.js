@@ -37,7 +37,7 @@ app.post("/api/chat", async (req, res) => {
   const response = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: `${message}`,
-    max_tokens: 4000,
+    max_tokens: 4010,
     temperature: 0,
   });
   console.log(response.data);
