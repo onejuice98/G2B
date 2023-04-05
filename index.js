@@ -114,5 +114,4 @@ app.get("/", async (req, res) => {
   res.send("HELLO G2B BOT is Here! v31, with chat gpt v2.0.2");
 });
 
-const server = app.listen(port);
-server.timeout = 600000; // 600초의 timeout설정
+app.listen(port);

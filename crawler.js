@@ -132,12 +132,7 @@ const detailCrawler = async (object) => {
 
       result.push(returnData);
     });
-    //return Promise.resolve(result);
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(result);
-      }, 600000); // 600초
-    });
+    return Promise.resolve(result);
   } catch (err) {
     await page.close();
     await browser.close();
