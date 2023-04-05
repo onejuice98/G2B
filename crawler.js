@@ -91,47 +91,53 @@ const detailCrawler = async (object) => {
   /* 기초금액 파악 */
   const price = await page.content();
 
-  /* SPA 버튼 조작 (입찰결과 버튼 클릭) */
-  const resultBtn = await page.$(
-    "#container > div:nth-child(26) > table > tbody > tr:nth-last-child(1) > td:nth-last-child(1) > a"
-  );
-  await resultBtn.click();
-  await page.waitForNavigation();
+  try {
+    /* SPA 버튼 조작 (입찰결과 버튼 클릭) */
+    const resultBtn = await page.$(
+      "#container > div:nth-child(26) > table > tbody > tr:nth-last-child(1) > td:nth-last-child(1) > a"
+    );
+    await resultBtn.click();
+    await page.waitForNavigation();
 
-  const content = await page.content();
-  await page.close();
-  await browser.close();
+    const content = await page.content();
+    await page.close();
+    await browser.close();
 
-  /* 기초금액 */
-  const $price = cheerio.load(price);
+    /* 기초금액 */
+    const $price = cheerio.load(price);
 
-  /* 입찰결과 */
-  const $ = cheerio.load(content);
+    /* 입찰결과 */
+    const $ = cheerio.load(content);
 
-  const result = [];
-  $(object.selectPath).each((index, element) => {
-    const $data = cheerio.load(element);
-    const rank = index + 1;
-    const returnData = {};
+    const result = [];
+    $(object.selectPath).each((index, element) => {
+      const $data = cheerio.load(element);
+      const rank = index + 1;
+      const returnData = {};
 
-    returnData["rank"] = rank;
-    object.items.forEach((item) => {
-      returnData[item.name] = $data(item.path)
+      returnData["rank"] = rank;
+      object.items.forEach((item) => {
+        returnData[item.name] = $data(item.path)
+          .text()
+          .replace(/\t/g, "")
+          .replace(/\n/g, "")
+          .replace(/ /g, "");
+      });
+
+      returnData["기초금액"] = $price(
+        "#container > div:nth-child(18) > table > tbody > tr > td.tr"
+      )
         .text()
-        .replace(/\t/g, "")
-        .replace(/\n/g, "")
-        .replace(/ /g, "");
+        .replace("원", "");
+
+      result.push(returnData);
     });
-
-    returnData["기초금액"] = $price(
-      "#container > div:nth-child(18) > table > tbody > tr > td.tr"
-    )
-      .text()
-      .replace("원", "");
-
-    result.push(returnData);
-  });
-  return Promise.resolve(result);
+    return Promise.resolve(result);
+  } catch (err) {
+    await page.close();
+    await browser.close();
+    console.error(err);
+  }
 };
 
 const priceCrawler = async (bidNo) => {

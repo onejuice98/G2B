@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(timeout("120s"));
+app.use(timeout("300s"));
 
 /* chat gpt api */
 const configuration = new Configuration({
@@ -86,13 +86,13 @@ app.get("/api/post/result/detail", async (req, res) => {
       const details = await detailCrawler(
         detailObject(post[i]["공고번호"].slice(0, 11))
       );
-      details.map(
+      details?.map(
         (value, index) => value["대표자명"] === ceo && result.push(value)
       );
     }
     await fs.promises.writeFile(`${ceo}.json`, JSON.stringify(result));
   }
-
+  req.setTimeout(600000);
   return res.status(200).json(result);
 });
 
