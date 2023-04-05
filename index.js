@@ -16,6 +16,7 @@ const {
 const fs = require("fs");
 const postJSON = require("./post.json");
 const cors = require("cors");
+const timeout = require("connect-timeout");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(timeout("120s"));
 
 /* chat gpt api */
 const configuration = new Configuration({
