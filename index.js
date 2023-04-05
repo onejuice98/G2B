@@ -64,13 +64,13 @@ app.post("/api/posts", async (req, res) => {
   return res.status(200).json(post);
 });
 
-/* 최근 공고 1개 찾는 api */
+/* 최근 공고 1개 찾는 api 2023.04.06 update */
 app.get("/api/recent", (req, res) => {
   const recentData = JSON.parse(fs.readFileSync("post.json"));
   return res.status(200).json(recentData[0]);
 });
 
-/* 마감된 공고에서 결과를 뽑아내보자 ceo 이름 별로 defaultArea에서 뽑은 다음 저장이미 json이 있으면 다시 생성 X*/
+/* 마감된 공고에서 결과를 뽑아내보자 ceo 이름 별로 defaultArea에서 뽑은 다음 저장이미 json이 있으면 다시 생성 X  2023.04.06 update */
 app.get("/api/post/result/detail", async (req, res) => {
   const ceo = req.query.ceo;
   /* defaultArea.json은 22.01.01 ~ 23.04.06 까지의 데이터임 */
@@ -80,7 +80,7 @@ app.get("/api/post/result/detail", async (req, res) => {
     await fs.promises.access(`${ceo}.json`);
     result.push(JSON.parse(await fs.promises.readFile(`${ceo}.json`)));
   } catch (err) {
-    for (let i = 0; i < i; i++) {
+    for (let i = 0; i < post.length; i++) {
       const details = await detailCrawler(
         detailObject(post[i]["공고번호"].slice(0, 11))
       );
