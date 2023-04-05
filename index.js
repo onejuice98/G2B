@@ -51,6 +51,7 @@ app.post("/api/chat", async (req, res) => {
 });
 
 /* G2B crawler */
+/* 공고 검색 api 2개 */
 app.get("/api/posts", async (req, res) => {
   const post = JSON.parse(fs.readFileSync("post.json"));
   return res.status(200).json(post);
@@ -61,6 +62,36 @@ app.post("/api/posts", async (req, res) => {
   const post = await postCrawler(postListObject(from, to, bidCode, areaCode));
   fs.writeFileSync("post.json", JSON.stringify(post));
   return res.status(200).json(post);
+});
+
+/* 최근 공고 1개 찾는 api */
+app.get("/api/recent", (req, res) => {
+  const recentData = JSON.parse(fs.readFileSync("post.json"));
+  return res.status(200).json(recentData[0]);
+});
+
+/* 마감된 공고에서 결과를 뽑아내보자 ceo 이름 별로 defaultArea에서 뽑은 다음 저장이미 json이 있으면 다시 생성 X*/
+app.get("/api/post/result/detail", async (req, res) => {
+  const ceo = req.query.ceo;
+  /* defaultArea.json은 22.01.01 ~ 23.04.06 까지의 데이터임 */
+  const post = JSON.parse(fs.readFileSync("defaultArea.json"));
+  const result = [];
+  try {
+    await fs.promises.access(`${ceo}.json`);
+    result.push(JSON.parse(await fs.promises.readFile(`${ceo}.json`)));
+  } catch (err) {
+    for (let i = 0; i < i; i++) {
+      const details = await detailCrawler(
+        detailObject(post[i]["공고번호"].slice(0, 11))
+      );
+      details.map(
+        (value, index) => value["대표자명"] === ceo && result.push(value)
+      );
+    }
+    await fs.promises.writeFile(`${ceo}.json`, JSON.stringify(result));
+  }
+
+  return res.status(200).json(result);
 });
 
 app.get("/api/post", async (req, res) => {

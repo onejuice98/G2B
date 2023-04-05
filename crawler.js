@@ -111,8 +111,10 @@ const detailCrawler = async (object) => {
   const result = [];
   $(object.selectPath).each((index, element) => {
     const $data = cheerio.load(element);
+    const rank = index + 1;
     const returnData = {};
 
+    returnData["rank"] = rank;
     object.items.forEach((item) => {
       returnData[item.name] = $data(item.path)
         .text()
