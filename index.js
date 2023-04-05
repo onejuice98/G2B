@@ -78,7 +78,7 @@ app.get("/api/post/result", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  res.send("HELLO G2B BOT is Here! v31, with chat gpt v2.0.1");
+  res.send("HELLO G2B BOT is Here! v31, with chat gpt v2.0.2");
 });
 
 app.listen(port);
