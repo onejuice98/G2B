@@ -44,7 +44,7 @@ app.get("/api/post/result", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  res.send("HELLO G2B BOT is Here! v27");
+  res.send("HELLO G2B BOT is Here! v28");
 });
 
 app.listen(port);
