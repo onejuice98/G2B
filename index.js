@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json());
-app.use(timeout("300s"));
+app.use(timeout("600s"));
 
 /* chat gpt api */
 const configuration = new Configuration({
@@ -114,4 +114,5 @@ app.get("/", async (req, res) => {
   res.send("HELLO G2B BOT is Here! v31, with chat gpt v2.0.2");
 });
 
-app.listen(port);
+const server = app.listen(port);
+server.timeout = 600000; // 600초의 timeout설정
