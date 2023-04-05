@@ -1,3 +1,10 @@
+/* chat gpt api import*/
+require("dotenv").config();
+const OpenAI = require("openai");
+const { Configuration, OpenAIApi } = OpenAI;
+const bodyParser = require("body-parser");
+
+/* G2B crawler import */
 const express = require("express");
 const {
   postListObject,
@@ -16,7 +23,34 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(bodyParser.json());
 
+/* chat gpt api */
+const configuration = new Configuration({
+  organization: "org-zoXxBc2eGsKN96aoFsy14meF",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
+app.post("/api/chat", async (req, res) => {
+  const { message } = req.body;
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `${message}`,
+    max_tokens: 4000,
+    temperature: 0,
+  });
+  console.log(response.data);
+  if (response.data) {
+    if (response.data.choices) {
+      res.json({
+        message: response.data.choices[0].text,
+      });
+    }
+  }
+});
+
+/* G2B crawler */
 app.get("/api/posts", async (req, res) => {
   const post = JSON.parse(fs.readFileSync("post.json"));
   return res.status(200).json(post);
@@ -44,7 +78,7 @@ app.get("/api/post/result", async (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  res.send("HELLO G2B BOT is Here! v28");
+  res.send("HELLO G2B BOT is Here! v30");
 });
 
 app.listen(port);
